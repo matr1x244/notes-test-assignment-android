@@ -15,26 +15,21 @@ class RootActivity : AppCompatActivity(), FragmentNavigator {
         super.onCreate(savedInstanceState)
         val viewBinding = ActivityRootBinding.inflate(layoutInflater)
         this.viewBinding = viewBinding
-        setContentView(viewBinding.root)
-        supportFragmentManager
-            .beginTransaction()
-            .add(
-                viewBinding.container.id,
-                NoteListFragment()
-            )
-            .commit()
+        if (savedInstanceState == null) {
+            setContentView(viewBinding.root)
+            supportFragmentManager
+                .beginTransaction()
+                .add(viewBinding.containerRoot.id, NoteListFragment())
+                .commit()
+        }
     }
 
-    override fun navigateTo(
-        fragment: Fragment
-    ) {
+    override fun navigateTo(fragment: Fragment) {
         val viewBinding = this.viewBinding ?: return
         supportFragmentManager
             .beginTransaction()
-            .replace(
-                viewBinding.container.id,
-                fragment
-            )
+            .add(viewBinding.containerRoot.id, fragment)
+            .addToBackStack("")
             .commit()
     }
 
@@ -45,5 +40,4 @@ class RootActivity : AppCompatActivity(), FragmentNavigator {
             super.onBackPressed()
         }
     }
-
 }

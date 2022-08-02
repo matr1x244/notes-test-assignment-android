@@ -18,6 +18,10 @@ class NoteListFragment : ViewBindingFragment<FragmentNoteListBinding>(
     FragmentNoteListBinding::inflate
 ) {
 
+    companion object{
+        fun newInstance() = NoteListFragment()
+    }
+
     private val viewModel by lazy { DependencyManager.noteListViewModel() }
 
     private val recyclerViewAdapter = RecyclerViewAdapter()
